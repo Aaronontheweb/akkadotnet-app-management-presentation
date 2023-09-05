@@ -8,8 +8,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Akka.BCF.Abstractions\Akka.BCF.Abstractions.csproj" />
-      <ProjectReference Include="..\Akka.BCF.Domains.Payments\Akka.BCF.Domains.Payments.csproj" />
     </ItemGroup>
-
 
 </Project>

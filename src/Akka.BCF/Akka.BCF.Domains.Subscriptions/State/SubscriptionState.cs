@@ -10,6 +10,10 @@ namespace Akka.BCF.Domains.Subscriptions.State;
 
 public enum SubscriptionStatus
 {
+    /// <summary>
+    /// Pending state
+    /// </summary>
+    NotStarted,
     Active,
     Expired,
     Cancelled,
@@ -37,6 +41,8 @@ public sealed record SubscriptionSnapshot
     public decimal UpcomingPaymentAmount { get; init; }
     
     public DateTimeOffset? NextPaymentDate { get; init; }
+    
+    public SubscriptionInterval Interval { get; init; }
 }
 
 public class SubscriptionState : IDomainStateWithSnapshot<string, SubscriptionSnapshot>
@@ -59,6 +65,8 @@ public class SubscriptionState : IDomainStateWithSnapshot<string, SubscriptionSn
     public decimal UpcomingPaymentAmount { get; set; }
     
     public DateTimeOffset? NextPaymentDate { get; set; }
+    
+    public SubscriptionInterval Interval { get; set; }
     public SubscriptionSnapshot ToSnapshot()
     {
         return new SubscriptionSnapshot
@@ -69,7 +77,8 @@ public class SubscriptionState : IDomainStateWithSnapshot<string, SubscriptionSn
             ExpirationDate = ExpirationDate,
             Status = Status,
             UpcomingPaymentAmount = UpcomingPaymentAmount,
-            NextPaymentDate = NextPaymentDate
+            NextPaymentDate = NextPaymentDate,
+            Interval = Interval
         };
     }
 }
