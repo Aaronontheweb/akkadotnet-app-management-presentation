@@ -5,14 +5,13 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
-
+    
     <ItemGroup>
-        <PackageReference Include="Akka.Hosting" />
+      <Folder Include="Actors\" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Actors\" />
-      <Folder Include="Messages\Events\" />
+        <PackageReference Include="Akka.Cluster.Hosting" />
     </ItemGroup>
 
 </Project>
