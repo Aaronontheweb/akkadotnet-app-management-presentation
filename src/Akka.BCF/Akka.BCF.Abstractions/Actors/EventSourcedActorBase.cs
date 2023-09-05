@@ -36,6 +36,7 @@ public abstract class EventSourcedActorBase<TKey, TState, TSnapshot, TEvent, TCo
         Logger = logger;
         
         DefaultRecovers();
+        DefaultCommands();
     }
     
     protected ActorConfig Config { get; }
@@ -119,6 +120,8 @@ public abstract class EventSourcedActorBase<TKey, TState, TSnapshot, TEvent, TCo
                     SaveSnapshot(State.ToSnapshot());
             });
         });
+        
+        DomainCommandHandlers();
 
         Command<FetchCurrentState<TKey>>(fetchCurrentState =>
         {
@@ -135,6 +138,35 @@ public abstract class EventSourcedActorBase<TKey, TState, TSnapshot, TEvent, TCo
         {
             Logger.LogDebug("Successfully saved snapshot for {ActorType} {@State}", GetType(), State);
             
+            // delete all snapshots and events that happened before this one
+            if(Config.DeleteSnapshotsOnSuccessfulSnapshot)
+                DeleteSnapshots(new SnapshotSelectionCriteria(success.Metadata.SequenceNr, success.Metadata.Timestamp));
+            
+            if(Config.DeleteMessagesOnSuccessfulSnapshot)
+                DeleteMessages(success.Metadata.SequenceNr);
         });
+        
+        Command<SaveSnapshotFailure>(failure =>
+        {
+            Logger.LogError(failure.Cause, "Failed to save snapshot for {ActorType} {@State}", GetType(), State);
+        });
+        
+        Command<DeleteMessagesSuccess>(success =>
+        {
+            Logger.LogDebug("Successfully deleted messages for {ActorType} {@State}", GetType(), State);
+        });
+        
+        Command<DeleteMessagesFailure>(failure =>
+        {
+            Logger.LogError(failure.Cause, "Failed to delete messages for {ActorType} {@State}", GetType(), State);
+        });
+    }
+
+    /// <summary>
+    /// All domain-specific commands go here, if needed
+    /// </summary>
+    protected virtual void DomainCommandHandlers()
+    {
+        
     }
 }
