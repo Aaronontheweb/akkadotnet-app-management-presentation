@@ -4,7 +4,7 @@
 //  </copyright>
 // -----------------------------------------------------------------------
 
-namespace Akka.BCF.Abstractions.Messages;
+namespace Akka.BCF.Abstractions.Messages.Events;
 
 public interface IDomainEvent<out TKey> : IHasEntityKey<TKey> where TKey : notnull
 {

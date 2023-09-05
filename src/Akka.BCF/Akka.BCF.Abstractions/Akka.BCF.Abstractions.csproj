@@ -5,10 +5,6 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
-    
-    <ItemGroup>
-      <Folder Include="Actors\" />
-    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Akka.Cluster.Hosting" />
