@@ -12,6 +12,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Petabridge.Cmd.Cluster;
+using Petabridge.Cmd.Cluster.Sharding;
+using Petabridge.Cmd.Host;
+using Petabridge.Cmd.Remote;
 
 var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Development";
 
@@ -52,6 +56,12 @@ hostBuilder.ConfigureServices((context, services) =>
         builder.WithRemoting(remoteOptions.Value)
             .WithClustering(clusterOptions.Value)
             .AddSubscriptionsEntities(clusterOptions.Value.Roles!.First())
+            .AddPetabridgeCmd(cmd =>
+            {
+                cmd.RegisterCommandPalette(ClusterShardingCommands.Instance);
+                cmd.RegisterCommandPalette(new RemoteCommands());
+                cmd.RegisterCommandPalette(ClusterCommands.Instance);
+            })
             .AddStartup(async (system, registry) =>
             {
                 var subscriptionRegion = await registry.GetAsync<SubscriptionStateActor>();

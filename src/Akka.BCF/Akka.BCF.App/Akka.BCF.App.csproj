@@ -11,6 +11,9 @@
   <ItemGroup>
     <PackageReference Include="Akka.Cluster.Hosting" />
     <PackageReference Include="Microsoft.Extensions.Hosting" />
+    <PackageReference Include="Petabridge.Cmd.Cluster" />
+    <PackageReference Include="Petabridge.Cmd.Cluster.Sharding" />
+    <PackageReference Include="Petabridge.Cmd.Remote" />
   </ItemGroup>
 
   <ItemGroup>
