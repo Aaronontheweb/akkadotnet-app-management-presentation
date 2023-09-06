@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Akka.Pattern.Common\Akka.Pattern.Common.csproj" />
+      <ProjectReference Include="..\Akka.Pattern.Domains.Payments\Akka.Pattern.Domains.Payments.csproj" />
+    </ItemGroup>
+</Project>

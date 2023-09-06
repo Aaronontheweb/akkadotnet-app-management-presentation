@@ -1,6 +1,6 @@
 using System.Collections.Immutable;
 using Akka.BCF.Abstractions.States;
-using Akka.BCF.Domains.Subscriptions.Messages.Commands;
+using Akka.BCF.Domains.Subscriptions.Messages;
 
 namespace Akka.BCF.Domains.Subscriptions.State;
 

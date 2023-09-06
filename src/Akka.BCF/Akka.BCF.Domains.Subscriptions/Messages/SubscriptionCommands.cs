@@ -8,7 +8,7 @@ using Akka.Actor;
 using Akka.BCF.Abstractions.Messages.Commands;
 using Akka.BCF.Domains.Subscriptions.State;
 
-namespace Akka.BCF.Domains.Subscriptions.Messages.Commands;
+namespace Akka.BCF.Domains.Subscriptions.Messages;
 
 public interface ISubscriptionCommand : IDomainCommand<string>
 {
