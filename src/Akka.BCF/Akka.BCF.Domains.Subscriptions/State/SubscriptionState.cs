@@ -15,7 +15,6 @@ public enum SubscriptionStatus
     /// </summary>
     NotStarted,
     Active,
-    Expired,
     Cancelled,
     SuspendedNotPaid
 }
@@ -33,8 +32,6 @@ public sealed record SubscriptionSnapshot
     public string ProductId { get; init; } = default!;
     
     public string UserId { get; init; } = default!;
-    
-    public DateTimeOffset? ExpirationDate { get; init; }
     
     public SubscriptionStatus Status { get; init; }
     
@@ -58,8 +55,6 @@ public class SubscriptionState : IDomainStateWithSnapshot<string, SubscriptionSn
     
     public string UserId { get; set; } = default!;
     
-    public DateTimeOffset? ExpirationDate { get; set; }
-    
     public SubscriptionStatus Status { get; set; } = SubscriptionStatus.NotStarted;
     
     public decimal UpcomingPaymentAmount { get; set; }
@@ -74,7 +69,6 @@ public class SubscriptionState : IDomainStateWithSnapshot<string, SubscriptionSn
             SubscriptionId = EntityId,
             ProductId = ProductId,
             UserId = UserId,
-            ExpirationDate = ExpirationDate,
             Status = Status,
             UpcomingPaymentAmount = UpcomingPaymentAmount,
             NextPaymentDate = NextPaymentDate,

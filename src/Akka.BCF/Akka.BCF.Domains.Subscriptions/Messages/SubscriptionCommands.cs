@@ -18,7 +18,7 @@ public abstract record SubscriptionCommandBase(string EntityId, IActorRef? Reply
 {
 }
 
-public sealed record CreateSubscription(string EntityId, string ProductId, string UserId, SubscriptionInterval Interval, IActorRef? ReplyTo = null) : SubscriptionCommandBase(EntityId, ReplyTo);
+public sealed record CreateSubscription(string EntityId, string ProductId, string UserId, SubscriptionInterval Interval, decimal PaymentAmount, IActorRef? ReplyTo = null) : SubscriptionCommandBase(EntityId, ReplyTo);
 
 public sealed record CancelSubscription(string EntityId, IActorRef? ReplyTo = null) : SubscriptionCommandBase(EntityId, ReplyTo);
 

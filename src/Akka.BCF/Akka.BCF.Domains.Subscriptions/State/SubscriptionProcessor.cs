@@ -108,10 +108,21 @@ public sealed class
         };
     }
 
-    private ValueTask<(bool canProcess, ISubscriptionEvent[] events, string message)> ProcessCreateSubscription(SubscriptionState state, CreateSubscription create)
+    private async ValueTask<(bool canProcess, ISubscriptionEvent[] events, string message)> ProcessCreateSubscription(SubscriptionState state, CreateSubscription create)
     {
         // if we're here, we already know that the subscription doesn't exist
-        var subscription = new SubscriptionCreated(create.EntityId, create.ProductId, create.UserId, create.Interval);
-        return new ValueTask<(bool canProcess, ISubscriptionEvent[] events, string message)>((true, new ISubscriptionEvent[] {subscription}, string.Empty));
+        var subscription = new SubscriptionCreated(create.EntityId, create.ProductId, create.UserId, create.Interval, create.PaymentAmount);
+        
+        // need to process first payment
+        var paymentResult = await _paymentsService.CreatePayment(state.EntityId, state.ProductId, state.UserId, state.UpcomingPaymentAmount);
+        if (paymentResult.Success)
+        {
+            return new (true, new ISubscriptionEvent[] {subscription, new SubscriptionPaymentProcessed(paymentResult.EntityId, DateTimeOffset.UtcNow, state.UpcomingPaymentAmount)}, string.Empty);
+        }
+        else
+        {
+            // need to record the failed payment attempt
+            return new (true, new ISubscriptionEvent[] {subscription, new SubscriptionPaymentFailed(paymentResult.EntityId, DateTimeOffset.UtcNow, state.UpcomingPaymentAmount)}, paymentResult.Message ?? "Failed to process payment");
+        }
     }
 }
