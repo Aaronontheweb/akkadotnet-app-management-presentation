@@ -20,6 +20,6 @@ public static class SubscriptionsDomainConfig
     public static AkkaConfigurationBuilder AddSubscriptionsEntities(this AkkaConfigurationBuilder builder, string entityRole)
     {
         return builder.AddDomainEntity<string, SubscriptionState, SubscriptionSnapshot, ISubscriptionEvent, ISubscriptionCommand, SubscriptionStateActor,
-            SubscriptionStateBuilder, SubscriptionValidator, SubscriptionProcessor>(entityRole);
+            SubscriptionStateBuilder, SubscriptionValidator, SubscriptionProcessor>("subscriptions", entityRole);
     }
 }

@@ -35,6 +35,7 @@ public static class AkkaHostingExtensions
     public static AkkaConfigurationBuilder AddDomainEntity<TKey, TState, TSnapshot, TEvent, TCommand, TActor,
         TStateBuilder, TStateValidator, TStateProcessor>(
         this AkkaConfigurationBuilder builder,
+        string regionName,
         string shardRole)
         where TActor : EventSourcedActorBase<TKey, TState, TSnapshot, TEvent, TCommand>
         where TKey : notnull
@@ -43,7 +44,7 @@ public static class AkkaHostingExtensions
         where TEvent : IDomainEvent<TKey>
         where TCommand : IDomainCommand<TKey>
     {
-        return builder.WithShardRegion<TActor>(nameof(TActor), 
+        return builder.WithShardRegion<TActor>(regionName, 
             (system, registry, resolver) => s => resolver.Props<TActor>(s),
             new DomainEntityShardMessageExtractor<TKey>(ShardCount), new ShardOptions()
             {
