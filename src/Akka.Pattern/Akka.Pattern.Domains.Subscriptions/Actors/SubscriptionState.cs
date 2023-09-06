@@ -36,7 +36,7 @@ public sealed record SubscriptionCommandResponse
 
 public static class SubscriptionStateExtensions
 {
-    public static async Task<(ISubscriptionCommandResponse resp, ISubscriptionEvent[] @events)> ProcessCommand(
+    public static async Task<(ISubscriptionCommandResponse resp, ISubscriptionEvent[] @events)> ProcessCommandAsync(
         this SubscriptionState state, ISubscriptionCommand cmd, IPaymentsService paymentsService)
     {
         switch (cmd)

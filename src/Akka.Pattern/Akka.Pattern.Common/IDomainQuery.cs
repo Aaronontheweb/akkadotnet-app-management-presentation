@@ -12,7 +12,7 @@ public enum QueryResponseCode
     BadQuery
 }
 
-public interface IQueryResponse
+public interface IDomainQueryResponse
 {
     QueryResponseCode ResponseCode { get; }
     
