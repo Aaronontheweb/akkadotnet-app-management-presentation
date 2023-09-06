@@ -6,17 +6,25 @@
 
 using Akka.Actor;
 using Akka.BCF.Abstractions.Messages.Commands;
+using Akka.BCF.Domains.Subscriptions.State;
 
 namespace Akka.BCF.Domains.Subscriptions.Messages.Commands;
 
-public abstract record SubscriptionCommandBase(string EntityId, IActorRef? ReplyTo) : IDomainCommand<string>
+public interface ISubscriptionCommand : IDomainCommand<string>
 {
 }
 
-public sealed record CreateSubscription(string EntityId, string ProductId, string UserId, IActorRef? ReplyTo = null) : SubscriptionCommandBase(EntityId, ReplyTo);
+public abstract record SubscriptionCommandBase(string EntityId, IActorRef? ReplyTo) : ISubscriptionCommand
+{
+}
+
+public sealed record CreateSubscription(string EntityId, string ProductId, string UserId, SubscriptionInterval Interval, IActorRef? ReplyTo = null) : SubscriptionCommandBase(EntityId, ReplyTo);
 
 public sealed record CancelSubscription(string EntityId, IActorRef? ReplyTo = null) : SubscriptionCommandBase(EntityId, ReplyTo);
 
-public sealed record SuspendSubscription(string EntityId, IActorRef? ReplyTo = null) : SubscriptionCommandBase(EntityId, ReplyTo);
+public sealed record CheckSubscriptionStatus(string EntityId, IActorRef? ReplyTo = null) : SubscriptionCommandBase(EntityId, ReplyTo);
 
+/// <summary>
+/// Reactivates a cancelled subscription
+/// </summary>am>
 public sealed record ResumeSubscription(string EntityId, IActorRef? ReplyTo = null) : SubscriptionCommandBase(EntityId, ReplyTo);

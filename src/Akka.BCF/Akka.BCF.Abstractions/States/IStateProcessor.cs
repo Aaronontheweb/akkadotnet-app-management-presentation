@@ -19,7 +19,7 @@ public interface IStateProcessor<TKey, in TState, in TCommand, TEvent>
     where TEvent : IDomainEvent<TKey>
     where TKey : notnull
 {
-    Task<(bool canProcess, TEvent? @event, string message)> ProcessAsync(TState state, TCommand command);
+    Task<(bool canProcess, TEvent[] events, string message)> ProcessAsync(TState state, TCommand command);
 }
 
 public abstract class StateProcessorBase<TKey, TState, TCommand, TEvent> : IStateProcessor<TKey, TState, TCommand, TEvent>
@@ -37,18 +37,18 @@ public abstract class StateProcessorBase<TKey, TState, TCommand, TEvent> : IStat
         Logger = logger;
     }
 
-    public virtual async Task<(bool canProcess, TEvent? @event, string message)> ProcessAsync(TState state,
+    public virtual async Task<(bool canProcess, TEvent[] events, string message)> ProcessAsync(TState state,
         TCommand command)
     {
         var validationResult = await Validator.ValidateAsync(state, command);
         if (!validationResult.IsValid)
         {
             var message = string.Join(Environment.NewLine, validationResult.ValidationErrors ?? Enumerable.Empty<string>());
-            return (false, default, message);
+            return (false, Array.Empty<TEvent>(), message);
         }
         
         return await ProcessInternalAsync(state, command);
     }
     
-    protected abstract ValueTask<(bool canProcess, TEvent? @event, string message)> ProcessInternalAsync(TState state, TCommand command);
+    protected abstract ValueTask<(bool canProcess, TEvent[] events, string message)> ProcessInternalAsync(TState state, TCommand command);
 }

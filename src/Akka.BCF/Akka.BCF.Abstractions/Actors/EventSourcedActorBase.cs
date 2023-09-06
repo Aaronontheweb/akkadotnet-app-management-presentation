@@ -96,7 +96,7 @@ public abstract class EventSourcedActorBase<TKey, TState, TSnapshot, TEvent, TCo
     {
         CommandAsync<TCommand>(async cmd =>
         {
-            var (canProcess, @event, message) = await StateProcessor.ProcessAsync(State, cmd);
+            var (canProcess, events, message) = await StateProcessor.ProcessAsync(State, cmd);
             if (!canProcess)
             {
                 Logger.LogWarning("Cannot process command {@Command} for {ActorType} {@State} - {Message}", cmd, GetType(), State, message);
@@ -104,17 +104,25 @@ public abstract class EventSourcedActorBase<TKey, TState, TSnapshot, TEvent, TCo
                 return;
             }
 
-            if (@event == null)
+            if (events.Length == 0)
             {
-                Logger.LogWarning("Cannot process command {@Command} for {ActorType} {@State} - {Message}. Event payload was null.", cmd, GetType(), State, message);
+                // no-op
+                Logger.LogDebug("No events produced in response to {@Command} for {ActorType} {@State} - {Message}.", cmd, GetType(), State, message);
                 return;
             }
-            
-            Persist(@event, e =>
+
+            var replied = false;
+
+            PersistAll(events, e =>
             {
                 StateBuilder.Apply(State, e);
                 Logger.LogDebug("Persisted event {@Event} for {ActorType} {@State}", e, GetType(), State);
-                cmd.ReplyTo?.Tell(new CommandSucceeded<TKey>(cmd));
+
+                if (!replied)
+                {
+                    cmd.ReplyTo?.Tell(new CommandSucceeded<TKey>(cmd));
+                    replied = true;
+                }
 
                 if (LastSequenceNr % Config.MessagesPerSnapshot == 0)
                     SaveSnapshot(State.ToSnapshot());

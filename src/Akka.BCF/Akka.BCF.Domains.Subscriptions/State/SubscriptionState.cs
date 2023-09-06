@@ -82,3 +82,17 @@ public class SubscriptionState : IDomainStateWithSnapshot<string, SubscriptionSn
         };
     }
 }
+
+public static class SubscriptionStateExtensions
+{
+    // compute next payment date
+    public static DateTimeOffset ComputeNextPaymentDate(this SubscriptionState state)
+    {
+        return state.Interval switch
+        {
+            SubscriptionInterval.Monthly => state.NextPaymentDate!.Value.AddMonths(1),
+            SubscriptionInterval.Yearly => state.NextPaymentDate!.Value.AddYears(1),
+            _ => throw new NotSupportedException($"Subscription interval {state.Interval} is not supported.")
+        };
+    }
+}
