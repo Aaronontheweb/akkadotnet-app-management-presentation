@@ -11,7 +11,7 @@ namespace Akka.BCF.Domains.Subscriptions.State;
 public enum SubscriptionStatus
 {
     /// <summary>
-    /// Pending state
+    /// We're in the process of being created
     /// </summary>
     NotStarted,
     Active,
@@ -60,7 +60,7 @@ public class SubscriptionState : IDomainStateWithSnapshot<string, SubscriptionSn
     
     public DateTimeOffset? ExpirationDate { get; set; }
     
-    public SubscriptionStatus Status { get; set; }
+    public SubscriptionStatus Status { get; set; } = SubscriptionStatus.NotStarted;
     
     public decimal UpcomingPaymentAmount { get; set; }
     
