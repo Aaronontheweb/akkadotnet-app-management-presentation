@@ -12,9 +12,8 @@ public interface IDomainState<out TKey> : IHasEntityKey<TKey> where TKey : notnu
 {
 }
 
-public interface IDomainStateWithSnapshot<out TKey, out TSnapshot> : IDomainState<TKey>, ITakeSnapshots<TSnapshot>
+public interface IDomainStateWithSnapshot<out TKey, TSnapshot> : IDomainState<TKey>, ITakeSnapshots<TSnapshot>
     where TKey : notnull 
     where TSnapshot : new()
 {
-    
 }

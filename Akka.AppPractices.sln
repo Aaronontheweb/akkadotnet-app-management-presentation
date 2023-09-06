@@ -9,6 +9,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Akka.BCF.App", "src\Akka.BC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Akka.BCF.Abstractions", "src\Akka.BCF\Akka.BCF.Abstractions\Akka.BCF.Abstractions.csproj", "{3B00A3D0-3270-49DC-BDFF-D714EA8E9E2B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{2A3770E5-09FB-4CA6-87BB-AE614863229E}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Akka.BCF.Domains.Subscriptions", "src\Akka.BCF\Akka.BCF.Domains.Subscriptions\Akka.BCF.Domains.Subscriptions.csproj", "{4849FBED-97ED-4F69-97E1-4E0AFF3FB15A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Akka.BCF.Domains.Payments", "src\Akka.BCF\Akka.BCF.Domains.Payments\Akka.BCF.Domains.Payments.csproj", "{D71F42C1-E57E-41D1-A506-8EB9669AAADA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,9 +37,19 @@ Global
 		{3B00A3D0-3270-49DC-BDFF-D714EA8E9E2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B00A3D0-3270-49DC-BDFF-D714EA8E9E2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B00A3D0-3270-49DC-BDFF-D714EA8E9E2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4849FBED-97ED-4F69-97E1-4E0AFF3FB15A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4849FBED-97ED-4F69-97E1-4E0AFF3FB15A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4849FBED-97ED-4F69-97E1-4E0AFF3FB15A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4849FBED-97ED-4F69-97E1-4E0AFF3FB15A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D71F42C1-E57E-41D1-A506-8EB9669AAADA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D71F42C1-E57E-41D1-A506-8EB9669AAADA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D71F42C1-E57E-41D1-A506-8EB9669AAADA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D71F42C1-E57E-41D1-A506-8EB9669AAADA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{AF4B7A6D-B929-4CE4-AE33-B7E2C92050E3} = {8CDC2B3E-DCE2-44A4-933B-650231D5E5FE}
 		{3B00A3D0-3270-49DC-BDFF-D714EA8E9E2B} = {8CDC2B3E-DCE2-44A4-933B-650231D5E5FE}
+		{4849FBED-97ED-4F69-97E1-4E0AFF3FB15A} = {8CDC2B3E-DCE2-44A4-933B-650231D5E5FE}
+		{D71F42C1-E57E-41D1-A506-8EB9669AAADA} = {8CDC2B3E-DCE2-44A4-933B-650231D5E5FE}
 	EndGlobalSection
 EndGlobal

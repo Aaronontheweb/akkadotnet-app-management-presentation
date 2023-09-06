@@ -6,7 +6,8 @@
 
 namespace Akka.BCF.Abstractions;
 
-public interface IHasEntityKey<out TKey> where TKey : notnull
+public interface IHasEntityKey<out TKey>
+    where TKey : notnull
 {
     TKey EntityId { get; }
 }

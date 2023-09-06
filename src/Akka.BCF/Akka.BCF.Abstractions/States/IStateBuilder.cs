@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------
 
 using Akka.BCF.Abstractions.Messages;
+using Akka.BCF.Abstractions.Messages.Events;
 
 namespace Akka.BCF.Abstractions.States;
 

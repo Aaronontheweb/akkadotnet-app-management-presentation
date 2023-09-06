@@ -7,8 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Akka.Cluster.Hosting" />
+      <ProjectReference Include="..\Akka.BCF.Abstractions\Akka.BCF.Abstractions.csproj" />
+      <ProjectReference Include="..\Akka.BCF.Domains.Payments\Akka.BCF.Domains.Payments.csproj" />
+
     </ItemGroup>
+
 
 
 
