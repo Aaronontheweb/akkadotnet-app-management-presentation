@@ -217,4 +217,42 @@ public static class SubscriptionStateExtensions
                 });
         }
     }
+    
+    public static SubscriptionState Apply(this SubscriptionState state, ISubscriptionEvent @event)
+    {
+        return @event switch
+        {
+            SubscriptionCreated created => state with
+            {
+                ProductId = created.ProductId,
+                UserId = created.UserId,
+                Status = SubscriptionStatus.Active,
+                UpcomingPaymentAmount = created.PaymentAmount,
+                NextPaymentDate = DateTimeOffset.UtcNow, // payment is owed upfront
+                Interval = created.Interval
+            },
+            SubscriptionPaymentProcessed processed => state with
+            {
+                NextPaymentDate = state.Interval == SubscriptionInterval.Yearly ? processed.PaymentDate.AddYears(1) : processed.PaymentDate.AddMonths(1),
+                Status = SubscriptionStatus.Active
+            },
+            SubscriptionPaymentFailed failed => state with
+            {
+                Status = SubscriptionStatus.SuspendedNotPaid
+            },
+            SubscriptionCancelled cancelled => state with
+            {
+                Status = SubscriptionStatus.Cancelled
+            },
+            SubscriptionResumed resumed => state with
+            {
+                Status = SubscriptionStatus.Active
+            },
+            SubscriptionSuspended suspended => state with
+            {
+                Status = SubscriptionStatus.SuspendedNotPaid
+            },
+            _ => state
+        };
+    }
 }
