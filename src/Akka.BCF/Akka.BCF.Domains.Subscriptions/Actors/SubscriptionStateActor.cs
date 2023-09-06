@@ -1,7 +1,6 @@
 using Akka.BCF.Abstractions.Actors;
 using Akka.BCF.Abstractions.States;
 using Akka.BCF.Domains.Subscriptions.Messages;
-using Akka.BCF.Domains.Subscriptions.Messages.Commands;
 using Akka.BCF.Domains.Subscriptions.State;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;

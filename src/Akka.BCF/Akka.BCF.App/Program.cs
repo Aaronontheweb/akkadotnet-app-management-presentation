@@ -3,7 +3,7 @@ using Akka.Hosting;
 using Akka.BCF.Domains.Payments.Config;
 using Akka.BCF.Domains.Subscriptions.Actors;
 using Akka.BCF.Domains.Subscriptions.Config;
-using Akka.BCF.Domains.Subscriptions.Messages.Commands;
+using Akka.BCF.Domains.Subscriptions.Messages;
 using Akka.BCF.Domains.Subscriptions.State;
 using Akka.Cluster.Hosting;
 using Akka.Remote.Hosting;

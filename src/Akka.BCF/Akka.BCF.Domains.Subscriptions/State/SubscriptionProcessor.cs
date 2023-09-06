@@ -1,7 +1,6 @@
 using Akka.BCF.Abstractions.States;
 using Akka.BCF.Domains.Payments;
 using Akka.BCF.Domains.Subscriptions.Messages;
-using Akka.BCF.Domains.Subscriptions.Messages.Commands;
 using Microsoft.Extensions.Logging;
 
 namespace Akka.BCF.Domains.Subscriptions.State;
