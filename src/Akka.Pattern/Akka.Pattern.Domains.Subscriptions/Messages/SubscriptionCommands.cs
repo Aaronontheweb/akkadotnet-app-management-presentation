@@ -25,3 +25,4 @@ public static class SubscriptionCommands
     public sealed record ResumeSubscription(string SubscriptionId, IActorRef? ReplyTo = null) : ISubscriptionCommand;
 }
 
+public interface ISubscriptionCommandResponse : ICommandResponse, IWithSubscriptionId{}

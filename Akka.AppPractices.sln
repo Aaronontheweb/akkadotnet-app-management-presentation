@@ -26,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Akka.Pattern.Domains.Subscr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Akka.Pattern.Common", "src\Akka.Pattern\Akka.Pattern.Common\Akka.Pattern.Common.csproj", "{ABFBAB38-B04C-41CB-8D2F-B7F2B816FE29}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Akka.Pattern.Domains.Payments", "src\Akka.Pattern\Akka.Pattern.Domains.Payments\Akka.Pattern.Domains.Payments.csproj", "{67568934-F15B-44CC-96E8-45094F319EA9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{ABFBAB38-B04C-41CB-8D2F-B7F2B816FE29}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ABFBAB38-B04C-41CB-8D2F-B7F2B816FE29}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ABFBAB38-B04C-41CB-8D2F-B7F2B816FE29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67568934-F15B-44CC-96E8-45094F319EA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67568934-F15B-44CC-96E8-45094F319EA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67568934-F15B-44CC-96E8-45094F319EA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67568934-F15B-44CC-96E8-45094F319EA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{AF4B7A6D-B929-4CE4-AE33-B7E2C92050E3} = {8CDC2B3E-DCE2-44A4-933B-650231D5E5FE}
@@ -67,5 +73,6 @@ Global
 		{D71F42C1-E57E-41D1-A506-8EB9669AAADA} = {8CDC2B3E-DCE2-44A4-933B-650231D5E5FE}
 		{B624175C-E4EC-4E69-9CD2-0C737F1C57F5} = {027C96B8-E49F-4F37-8A4B-2F33A5DD100B}
 		{ABFBAB38-B04C-41CB-8D2F-B7F2B816FE29} = {027C96B8-E49F-4F37-8A4B-2F33A5DD100B}
+		{67568934-F15B-44CC-96E8-45094F319EA9} = {027C96B8-E49F-4F37-8A4B-2F33A5DD100B}
 	EndGlobalSection
 EndGlobal

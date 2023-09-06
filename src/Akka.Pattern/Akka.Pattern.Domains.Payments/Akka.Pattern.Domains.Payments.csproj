@@ -8,6 +8,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Akka.Pattern.Common\Akka.Pattern.Common.csproj" />
-      <ProjectReference Include="..\Akka.Pattern.Domains.Payments\Akka.Pattern.Domains.Payments.csproj" />
     </ItemGroup>
+
 </Project>
