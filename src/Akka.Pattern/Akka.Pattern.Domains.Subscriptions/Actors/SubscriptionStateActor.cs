@@ -57,6 +57,7 @@ public sealed class SubscriptionStateActor : ReceivePersistentActor
             {
                 _log.Debug("No events produced in response to command {0} for State {1}", cmd, State);
                 Sender.Tell(resp);
+                return;
             }
 
             var replied = false;

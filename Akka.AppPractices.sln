@@ -14,6 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{2A3770
 		Directory.Build.props = Directory.Build.props
 		Directory.Packages.props = Directory.Packages.props
 		global.json = global.json
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Akka.BCF.Domains.Subscriptions", "src\Akka.BCF\Akka.BCF.Domains.Subscriptions\Akka.BCF.Domains.Subscriptions.csproj", "{4849FBED-97ED-4F69-97E1-4E0AFF3FB15A}"
