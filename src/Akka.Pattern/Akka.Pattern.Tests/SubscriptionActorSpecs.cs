@@ -65,4 +65,43 @@ public class SubscriptionActorSpecs : TestKit.Xunit2.TestKit
          actually populated should always respond "not found" initially */
         stateResponse.ResponseCode.Should().Be(QueryResponseCode.NotFound);
     }
+
+    [Fact]
+    public async Task ShouldPopulateAndCancelSubscription()
+    {
+        // arrange
+        TestActorRef<SubscriptionStateActor> subscriptionActor =
+            ActorOfAsTestActorRef<SubscriptionStateActor>(SubscriptionStateActorProps);
+
+        var createSubscription =
+            new SubscriptionCommands.CreateSubscription(TestSubscriptionId, TestProductId1, TestUserId,
+                SubscriptionInterval.Monthly, 100.0m);
+        var cancelSubscription = new SubscriptionCommands.CancelSubscription(TestSubscriptionId);
+        var resumeSubscription = new SubscriptionCommands.ResumeSubscription(TestSubscriptionId);
+
+        // act (create)
+        subscriptionActor.Tell(createSubscription);
+        var resp1 = await ExpectMsgAsync<ISubscriptionCommandResponse>(RemainingOrDefault);
+        resp1.Result.Should().Be(CommandResult.Success);
+
+        // check the state (should be active)
+        subscriptionActor.UnderlyingActor.State.Status.Should().Be(SubscriptionStatus.Active);
+        subscriptionActor.UnderlyingActor.State.ProductId.Should().Be(TestProductId1);
+
+        // act (cancel)
+        subscriptionActor.Tell(cancelSubscription);
+        var resp2 = await ExpectMsgAsync<ISubscriptionCommandResponse>(RemainingOrDefault);
+        resp2.Result.Should().Be(CommandResult.Success);
+        
+        // check the state (should be cancelled)
+        subscriptionActor.UnderlyingActor.State.Status.Should().Be(SubscriptionStatus.Cancelled);
+        
+        // act (resume)
+        subscriptionActor.Tell(resumeSubscription);
+        var resp3 = await ExpectMsgAsync<ISubscriptionCommandResponse>(RemainingOrDefault);
+        resp3.Result.Should().Be(CommandResult.Success);
+        
+        // check the state (should be active)
+        subscriptionActor.UnderlyingActor.State.Status.Should().Be(SubscriptionStatus.Active);
+    }
 }
