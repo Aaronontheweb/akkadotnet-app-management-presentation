@@ -192,15 +192,15 @@ public static class SubscriptionStateExtensions
 
         // need to process first payment
         var paymentResult = await paymentsService.CreatePayment(state.SubscriptionId, state.ProductId, state.UserId,
-            state.UpcomingPaymentAmount);
+            create.PaymentAmount);
         if (paymentResult.IsSuccess())
         {
             return new(SubscriptionCommandResponse.Success(state.SubscriptionId),
                 new ISubscriptionEvent[]
                 {
                     subscription,
-                    new SubscriptionPaymentProcessed(new SubscriptionId(paymentResult.PaymentId), DateTimeOffset.UtcNow,
-                        state.UpcomingPaymentAmount)
+                    new SubscriptionPaymentProcessed(create.SubscriptionId, DateTimeOffset.UtcNow,
+                        create.PaymentAmount)
                 });
         }
         else
@@ -213,7 +213,7 @@ public static class SubscriptionStateExtensions
                 {
                     subscription,
                     new SubscriptionPaymentFailed(state.SubscriptionId, DateTimeOffset.UtcNow,
-                        state.UpcomingPaymentAmount)
+                        create.PaymentAmount)
                 });
         }
     }

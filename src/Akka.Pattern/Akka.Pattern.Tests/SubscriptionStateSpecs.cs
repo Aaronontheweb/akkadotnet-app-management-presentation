@@ -10,11 +10,11 @@ namespace Akka.Pattern.Tests;
 
 public class SubscriptionStateSpecs
 {
-    public static readonly SubscriptionId TestSubscriptionId = new SubscriptionId("test-subscription");
-    public static readonly ProductId TestProductId1 = new ProductId("test-product");
-    public static readonly ProductId TestProductId2 = new ProductId("test-product-2");
-    public static readonly UserId TestUserId = new UserId("test-user");
-    public static readonly SubscriptionState InitialState = new SubscriptionState(TestSubscriptionId);
+    public static readonly SubscriptionId TestSubscriptionId = new("test-subscription");
+    public static readonly ProductId TestProductId1 = new("test-product");
+    public static readonly ProductId TestProductId2 = new("test-product-2");
+    public static readonly UserId TestUserId = new("test-user");
+    public static readonly SubscriptionState InitialState = new(TestSubscriptionId);
     
     public class WhenInitializingSubscriptionState 
     {
