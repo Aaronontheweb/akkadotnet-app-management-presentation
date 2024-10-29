@@ -19,7 +19,7 @@ public sealed class SubscriptionMessageExtractor : HashCodeMessageExtractor
     {
         return (message switch
         {
-            IWithSubscriptionId withSubscriptionId => withSubscriptionId.SubscriptionId,
+            IWithSubscriptionId withSubscriptionId => withSubscriptionId.SubscriptionId.Id,
             _ => string.Empty
         });
     }

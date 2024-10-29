@@ -19,10 +19,10 @@ public sealed class SubscriptionStateActor : ReceivePersistentActor
     
     public override string PersistenceId { get; }
 
-    public SubscriptionStateActor(string subscriptionId, IPaymentsService paymentsService)
+    public SubscriptionStateActor(SubscriptionId subscriptionId, IPaymentsService paymentsService)
     {
         _paymentsService = paymentsService;
-        PersistenceId = $"subscription-{subscriptionId}";
+        PersistenceId = $"subscription-{subscriptionId.Id}";
         State = new SubscriptionState(subscriptionId);
         
         Recovers();

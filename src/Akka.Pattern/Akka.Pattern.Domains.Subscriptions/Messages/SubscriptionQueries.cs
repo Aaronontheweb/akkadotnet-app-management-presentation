@@ -14,8 +14,8 @@ public interface ISubscriptionQueryResponse : IWithSubscriptionId, IDomainQueryR
 
 public static class SubscriptionQueries
 {
-    public sealed record GetSubscriptionState(string SubscriptionId) : ISubscriptionQuery;
+    public sealed record GetSubscriptionState(SubscriptionId SubscriptionId) : ISubscriptionQuery;
 
-    public sealed record GetSubscriptionStateResponse(string SubscriptionId, SubscriptionState? State,
+    public sealed record GetSubscriptionStateResponse(SubscriptionId SubscriptionId, SubscriptionState? State,
         QueryResponseCode ResponseCode, string? Message = null) : ISubscriptionQueryResponse;
 }

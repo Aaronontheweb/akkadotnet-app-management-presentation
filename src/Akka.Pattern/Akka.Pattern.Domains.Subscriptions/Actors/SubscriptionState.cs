@@ -6,7 +6,7 @@ using static Akka.Pattern.Domains.Subscriptions.Messages.SubscriptionEvents;
 
 namespace Akka.Pattern.Domains.Subscriptions.Actors;
 
-public sealed record SubscriptionState(string SubscriptionId) : IWithSubscriptionId
+public sealed record SubscriptionState(SubscriptionId SubscriptionId) : IWithSubscriptionId
 {
     public string ProductId { get; init; } = default!;
 
@@ -22,15 +22,15 @@ public sealed record SubscriptionState(string SubscriptionId) : IWithSubscriptio
 }
 
 public sealed record SubscriptionCommandResponse
-    (string SubscriptionId, CommandResult Result, string? Message = null) : ISubscriptionCommandResponse
+    (SubscriptionId SubscriptionId, CommandResult Result, string? Message = null) : ISubscriptionCommandResponse
 {
-    public static ISubscriptionCommandResponse Success(string subscriptionId) =>
+    public static ISubscriptionCommandResponse Success(SubscriptionId subscriptionId) =>
         new SubscriptionCommandResponse(subscriptionId, CommandResult.Success);
 
-    public static ISubscriptionCommandResponse Failure(string subscriptionId, string? message = null) =>
+    public static ISubscriptionCommandResponse Failure(SubscriptionId subscriptionId, string? message = null) =>
         new SubscriptionCommandResponse(subscriptionId, CommandResult.Failure, message);
 
-    public static ISubscriptionCommandResponse NoOp(string subscriptionId, string? message = null) =>
+    public static ISubscriptionCommandResponse NoOp(SubscriptionId subscriptionId, string? message = null) =>
         new SubscriptionCommandResponse(subscriptionId, CommandResult.NoOp, message);
 }
 
@@ -60,7 +60,7 @@ public static class SubscriptionStateExtensions
         if (state.Status is SubscriptionStatus.SuspendedNotPaid or SubscriptionStatus.Cancelled)
         {
             // need to try to run a payment
-            var paymentResult = await paymentsService.CreatePayment(state.SubscriptionId, state.ProductId, state.UserId,
+            var paymentResult = await paymentsService.CreatePayment(state.SubscriptionId.Id, state.ProductId, state.UserId,
                 state.UpcomingPaymentAmount);
             if (paymentResult.IsSuccess())
             {
@@ -119,14 +119,14 @@ public static class SubscriptionStateExtensions
         if (state.Status is SubscriptionStatus.Active && state.NextPaymentDate <= DateTimeOffset.UtcNow)
         {
             // run payment
-            var paymentResult = await paymentsService.CreatePayment(state.SubscriptionId, state.ProductId, state.UserId,
+            var paymentResult = await paymentsService.CreatePayment(state.SubscriptionId.Id, state.ProductId, state.UserId,
                 state.UpcomingPaymentAmount);
             if (paymentResult.IsSuccess())
             {
                 return (SubscriptionCommandResponse.Success(state.SubscriptionId),
                     new ISubscriptionEvent[]
                     {
-                        new SubscriptionPaymentProcessed(paymentResult.PaymentId,
+                        new SubscriptionPaymentProcessed(new SubscriptionId(paymentResult.PaymentId),
                             DateTimeOffset.UtcNow, state.UpcomingPaymentAmount)
                     });
             }
@@ -151,7 +151,7 @@ public static class SubscriptionStateExtensions
         if (state.Status is SubscriptionStatus.SuspendedNotPaid && state.NextPaymentDate <= DateTimeOffset.UtcNow)
         {
             // run payment
-            var paymentResult = await paymentsService.CreatePayment(state.SubscriptionId, state.ProductId, state.UserId,
+            var paymentResult = await paymentsService.CreatePayment(state.SubscriptionId.Id, state.ProductId, state.UserId,
                 state.UpcomingPaymentAmount);
             if (paymentResult.IsSuccess())
             {
@@ -191,7 +191,7 @@ public static class SubscriptionStateExtensions
             create.Interval, create.PaymentAmount);
 
         // need to process first payment
-        var paymentResult = await paymentsService.CreatePayment(state.SubscriptionId, state.ProductId, state.UserId,
+        var paymentResult = await paymentsService.CreatePayment(state.SubscriptionId.Id, state.ProductId, state.UserId,
             state.UpcomingPaymentAmount);
         if (paymentResult.IsSuccess())
         {
@@ -199,7 +199,7 @@ public static class SubscriptionStateExtensions
                 new ISubscriptionEvent[]
                 {
                     subscription,
-                    new SubscriptionPaymentProcessed(paymentResult.PaymentId, DateTimeOffset.UtcNow,
+                    new SubscriptionPaymentProcessed(new SubscriptionId(paymentResult.PaymentId), DateTimeOffset.UtcNow,
                         state.UpcomingPaymentAmount)
                 });
         }

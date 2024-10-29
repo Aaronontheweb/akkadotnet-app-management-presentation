@@ -2,6 +2,7 @@
 using Akka.Hosting;
 using Akka.Cluster.Hosting;
 using Akka.Pattern.Domains.Payments.Config;
+using Akka.Pattern.Domains.Subscriptions;
 using Akka.Pattern.Domains.Subscriptions.Actors;
 using Akka.Pattern.Domains.Subscriptions.Config;
 using Akka.Pattern.Domains.Subscriptions.Messages;
@@ -73,7 +74,7 @@ hostBuilder.ConfigureServices((context, services) =>
                 // create 10 "CreateSubscription" commands
                 for (var i = 0; i < 10; i++)
                 {
-                    var command = new SubscriptionCommands.CreateSubscription($"subscription-{i}", "test", $"test-{i}", SubscriptionInterval.Monthly, 100.0m);
+                    var command = new SubscriptionCommands.CreateSubscription(new SubscriptionId($"subscription-{i}"), "test", $"test-{i}", SubscriptionInterval.Monthly, 100.0m);
                     subscriptionRegion.Tell(command);
                 }
             });

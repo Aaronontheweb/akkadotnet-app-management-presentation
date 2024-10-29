@@ -10,19 +10,19 @@ public static class SubscriptionEvents
 /*
  * These events really originate from the Payments domain, but we're re-modeling them into the Subscriptions domain for separation of concerns.
  */
-    public sealed record SubscriptionPaymentProcessed(string SubscriptionId, DateTimeOffset PaymentDate,
+    public sealed record SubscriptionPaymentProcessed(SubscriptionId SubscriptionId, DateTimeOffset PaymentDate,
         decimal PaymentAmount) : ISubscriptionEvent;
 
-    public sealed record SubscriptionPaymentFailed(string SubscriptionId, DateTimeOffset PaymentDate, decimal PaymentAmount) : ISubscriptionEvent;
+    public sealed record SubscriptionPaymentFailed(SubscriptionId SubscriptionId, DateTimeOffset PaymentDate, decimal PaymentAmount) : ISubscriptionEvent;
 
-    public sealed record SubscriptionCreated(string SubscriptionId, string ProductId, string UserId, SubscriptionInterval Interval, decimal PaymentAmount) : ISubscriptionEvent;
+    public sealed record SubscriptionCreated(SubscriptionId SubscriptionId, string ProductId, string UserId, SubscriptionInterval Interval, decimal PaymentAmount) : ISubscriptionEvent;
 
-    public sealed record SubscriptionCancelled(string SubscriptionId) :ISubscriptionEvent;
+    public sealed record SubscriptionCancelled(SubscriptionId SubscriptionId) :ISubscriptionEvent;
 
-    public sealed record SubscriptionResumed(string SubscriptionId) : ISubscriptionEvent;
+    public sealed record SubscriptionResumed(SubscriptionId SubscriptionId) : ISubscriptionEvent;
 
     /// <summary>
     /// Failure to pay
     /// </summary>
-    public sealed record SubscriptionSuspended(string SubscriptionId) : ISubscriptionEvent;
+    public sealed record SubscriptionSuspended(SubscriptionId SubscriptionId) : ISubscriptionEvent;
 }
