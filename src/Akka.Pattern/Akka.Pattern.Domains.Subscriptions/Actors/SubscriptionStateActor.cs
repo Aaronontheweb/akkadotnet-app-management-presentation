@@ -51,7 +51,8 @@ public sealed class SubscriptionStateActor : ReceivePersistentActor
         CommandAsync<ISubscriptionCommand>(async cmd =>
         {
             _log.Debug("Processing command {0} in State {1}", cmd, State);
-            var (resp, events) = await State.ProcessCommandAsync(cmd, _paymentsService);
+            var (resp, events) = await State
+                .ProcessCommandAsync(cmd, _paymentsService);
 
             if (events.Length == 0)
             {
