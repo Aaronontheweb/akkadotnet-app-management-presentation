@@ -12,17 +12,17 @@ public interface ISubscriptionCommand : IWithSubscriptionId, IDomainCommand
 /// </summary>
 public static class SubscriptionCommands
 {
-    public sealed record CreateSubscription(string SubscriptionId, string ProductId, string UserId,
+    public sealed record CreateSubscription(SubscriptionId SubscriptionId, string ProductId, string UserId,
         SubscriptionInterval Interval, decimal PaymentAmount, IActorRef? ReplyTo = null) : ISubscriptionCommand;
 
-    public sealed record CancelSubscription(string SubscriptionId, IActorRef? ReplyTo = null) : ISubscriptionCommand;
+    public sealed record CancelSubscription(SubscriptionId SubscriptionId, IActorRef? ReplyTo = null) : ISubscriptionCommand;
 
-    public sealed record CheckSubscriptionStatus(string SubscriptionId, IActorRef? ReplyTo = null) : ISubscriptionCommand;
+    public sealed record CheckSubscriptionStatus(SubscriptionId SubscriptionId, IActorRef? ReplyTo = null) : ISubscriptionCommand;
 
     /// <summary>
     /// Reactivates a cancelled subscription
     /// </summary>am>
-    public sealed record ResumeSubscription(string SubscriptionId, IActorRef? ReplyTo = null) : ISubscriptionCommand;
+    public sealed record ResumeSubscription(SubscriptionId SubscriptionId, IActorRef? ReplyTo = null) : ISubscriptionCommand;
 }
 
 public interface ISubscriptionCommandResponse : ICommandResponse, IWithSubscriptionId{}
