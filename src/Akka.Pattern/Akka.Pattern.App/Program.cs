@@ -1,6 +1,7 @@
 ﻿using Akka.Actor;
 using Akka.Hosting;
 using Akka.Cluster.Hosting;
+using Akka.Pattern.Common;
 using Akka.Pattern.Domains.Payments.Config;
 using Akka.Pattern.Domains.Subscriptions;
 using Akka.Pattern.Domains.Subscriptions.Actors;
@@ -41,20 +42,20 @@ hostBuilder.ConfigureServices((context, services) =>
         .Bind(context.Configuration.GetSection(nameof(RemoteOptions)));
     services.AddOptions<ClusterOptions>()
         .Bind(context.Configuration.GetSection(nameof(ClusterOptions)));
-    
+
     services.ConfigurePaymentsServices();
 
     services.AddAkka("SubscriptionsService", (builder, sp) =>
     {
         var remoteOptions = sp.GetRequiredService<IOptionsSnapshot<RemoteOptions>>();
         var clusterOptions = sp.GetRequiredService<IOptionsSnapshot<ClusterOptions>>();
-        
+
         builder
             .ConfigureLoggers(setup =>
             {
-                setup.LogLevel =LogLevel.InfoLevel;
+                setup.LogLevel = LogLevel.InfoLevel;
                 setup.ClearLoggers();
-                
+
                 // Example: Add the ILoggerFactory logger
                 setup.AddLoggerFactory();
             })
@@ -70,11 +71,12 @@ hostBuilder.ConfigureServices((context, services) =>
             .AddStartup(async (system, registry) =>
             {
                 var subscriptionRegion = await registry.GetAsync<SubscriptionStateActor>();
-                
+
                 // create 10 "CreateSubscription" commands
                 for (var i = 0; i < 10; i++)
                 {
-                    var command = new SubscriptionCommands.CreateSubscription(new SubscriptionId($"subscription-{i}"), "test", $"test-{i}", SubscriptionInterval.Monthly, 100.0m);
+                    var command = new SubscriptionCommands.CreateSubscription(new SubscriptionId($"subscription-{i}"),
+                        new ProductId("test"), new UserId($"test-{i}"), SubscriptionInterval.Monthly, 100.0m);
                     subscriptionRegion.Tell(command);
                 }
             });

@@ -17,4 +17,8 @@
         <PackageReference Include="xunit.runner.visualstudio"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Akka.Pattern.App\Akka.Pattern.App.csproj" />
+    </ItemGroup>
+
 </Project>
