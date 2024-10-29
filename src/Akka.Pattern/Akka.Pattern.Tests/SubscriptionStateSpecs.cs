@@ -10,13 +10,16 @@ namespace Akka.Pattern.Tests;
 
 public class SubscriptionStateSpecs
 {
-    public readonly FakePaymentsService PaymentsService = new() { ShouldPass = true };
-    
     public static readonly SubscriptionId TestSubscriptionId = new SubscriptionId("test-subscription");
+    public static readonly ProductId TestProductId1 = new ProductId("test-product");
+    public static readonly ProductId TestProductId2 = new ProductId("test-product-2");
+    public static readonly UserId TestUserId = new UserId("test-user");
     public static readonly SubscriptionState InitialState = new SubscriptionState(TestSubscriptionId);
     
     public class WhenInitializingSubscriptionState 
     {
+        public readonly FakePaymentsService PaymentsService = new() { ShouldPass = true };
+        
         [Fact]
         public void StatusShouldBeNotStarted()
         {
@@ -24,10 +27,26 @@ public class SubscriptionStateSpecs
         }
         
         [Fact]
-        public void ShouldProcessCreationEventForSameSubscriptionId()
+        public async Task ShouldProcessCreationEventForSameSubscriptionId()
         {
-            // var cmd = SubscriptionCommands.CreateSubscription(TestSubscriptionId);
-            // state.Status.Should().Be(SubscriptionStatus.Created);
+            var cmd = new SubscriptionCommands.CreateSubscription(TestSubscriptionId, TestProductId1, TestUserId, 
+                SubscriptionInterval.Monthly, 100.0m);
+
+            var (resp, events) = await InitialState.ProcessCommandAsync(cmd, PaymentsService);
+            
+            resp.Result.Should().Be(CommandResult.Success);
+            events.Should().HaveCount(2); // subscription created + payment processed
+            events[0].Should().BeOfType<SubscriptionEvents.SubscriptionCreated>();
+            
+            var created = (SubscriptionEvents.SubscriptionCreated) events[0];
+            created.SubscriptionId.Should().Be(TestSubscriptionId);
+            created.ProductId.Should().Be(TestProductId1);
+            created.UserId.Should().Be(TestUserId);
+            
+            events[1].Should().BeOfType<SubscriptionEvents.SubscriptionPaymentProcessed>();
+            var payment = (SubscriptionEvents.SubscriptionPaymentProcessed) events[1];
+            payment.SubscriptionId.Should().Be(TestSubscriptionId);
+            payment.PaymentAmount.Should().Be(cmd.PaymentAmount);
         }
     }
 }
