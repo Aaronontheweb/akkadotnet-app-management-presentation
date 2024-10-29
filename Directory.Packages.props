@@ -17,7 +17,7 @@
   </ItemGroup>
   
   <ItemGroup Label="MsftBcl">
-    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
   </ItemGroup>
 
   <!-- Test Package Versions -->
