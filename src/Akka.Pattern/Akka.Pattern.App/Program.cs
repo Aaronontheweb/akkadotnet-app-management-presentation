@@ -1,6 +1,7 @@
 ﻿using Akka.Actor;
 using Akka.Hosting;
 using Akka.Cluster.Hosting;
+using Akka.Pattern.Common;
 using Akka.Pattern.Domains.Payments.Config;
 using Akka.Pattern.Domains.Subscriptions;
 using Akka.Pattern.Domains.Subscriptions.Actors;

@@ -60,7 +60,7 @@ public static class SubscriptionStateExtensions
         if (state.Status is SubscriptionStatus.SuspendedNotPaid or SubscriptionStatus.Cancelled)
         {
             // need to try to run a payment
-            var paymentResult = await paymentsService.CreatePayment(state.SubscriptionId.Id, state.ProductId, state.UserId,
+            var paymentResult = await paymentsService.CreatePayment(state.SubscriptionId, state.ProductId, state.UserId,
                 state.UpcomingPaymentAmount);
             if (paymentResult.IsSuccess())
             {
@@ -119,7 +119,7 @@ public static class SubscriptionStateExtensions
         if (state.Status is SubscriptionStatus.Active && state.NextPaymentDate <= DateTimeOffset.UtcNow)
         {
             // run payment
-            var paymentResult = await paymentsService.CreatePayment(state.SubscriptionId.Id, state.ProductId, state.UserId,
+            var paymentResult = await paymentsService.CreatePayment(state.SubscriptionId, state.ProductId, state.UserId,
                 state.UpcomingPaymentAmount);
             if (paymentResult.IsSuccess())
             {
@@ -151,7 +151,7 @@ public static class SubscriptionStateExtensions
         if (state.Status is SubscriptionStatus.SuspendedNotPaid && state.NextPaymentDate <= DateTimeOffset.UtcNow)
         {
             // run payment
-            var paymentResult = await paymentsService.CreatePayment(state.SubscriptionId.Id, state.ProductId, state.UserId,
+            var paymentResult = await paymentsService.CreatePayment(state.SubscriptionId, state.ProductId, state.UserId,
                 state.UpcomingPaymentAmount);
             if (paymentResult.IsSuccess())
             {
@@ -191,7 +191,7 @@ public static class SubscriptionStateExtensions
             create.Interval, create.PaymentAmount);
 
         // need to process first payment
-        var paymentResult = await paymentsService.CreatePayment(state.SubscriptionId.Id, state.ProductId, state.UserId,
+        var paymentResult = await paymentsService.CreatePayment(state.SubscriptionId, state.ProductId, state.UserId,
             state.UpcomingPaymentAmount);
         if (paymentResult.IsSuccess())
         {

@@ -1,6 +1,6 @@
-﻿namespace Akka.Pattern.Domains.Subscriptions;
+﻿using Akka.Pattern.Common;
 
-public readonly record struct SubscriptionId(string Id);
+namespace Akka.Pattern.Domains.Subscriptions;
 
 /// <summary>
 /// All messages that are keyed to a specific Subscription

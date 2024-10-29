@@ -1,3 +1,5 @@
+using Akka.Pattern.Common;
+
 namespace Akka.Pattern.Domains.Subscriptions.Messages;
 
 public interface ISubscriptionEvent : IWithSubscriptionId
