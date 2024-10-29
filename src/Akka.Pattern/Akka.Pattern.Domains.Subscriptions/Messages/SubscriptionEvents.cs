@@ -17,7 +17,7 @@ public static class SubscriptionEvents
 
     public sealed record SubscriptionPaymentFailed(SubscriptionId SubscriptionId, DateTimeOffset PaymentDate, decimal PaymentAmount) : ISubscriptionEvent;
 
-    public sealed record SubscriptionCreated(SubscriptionId SubscriptionId, string ProductId, string UserId, SubscriptionInterval Interval, decimal PaymentAmount) : ISubscriptionEvent;
+    public sealed record SubscriptionCreated(SubscriptionId SubscriptionId, ProductId ProductId, UserId UserId, SubscriptionInterval Interval, decimal PaymentAmount) : ISubscriptionEvent;
 
     public sealed record SubscriptionCancelled(SubscriptionId SubscriptionId) :ISubscriptionEvent;
 

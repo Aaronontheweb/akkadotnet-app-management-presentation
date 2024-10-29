@@ -8,9 +8,9 @@ namespace Akka.Pattern.Domains.Subscriptions.Actors;
 
 public sealed record SubscriptionState(SubscriptionId SubscriptionId) : IWithSubscriptionId
 {
-    public string ProductId { get; init; } = default!;
+    public ProductId ProductId { get; init; } = default!;
 
-    public string UserId { get; init; } = default!;
+    public UserId UserId { get; init; } = default!;
 
     public SubscriptionStatus Status { get; init; }
 

@@ -12,7 +12,7 @@ public interface ISubscriptionCommand : IWithSubscriptionId, IDomainCommand
 /// </summary>
 public static class SubscriptionCommands
 {
-    public sealed record CreateSubscription(SubscriptionId SubscriptionId, string ProductId, string UserId,
+    public sealed record CreateSubscription(SubscriptionId SubscriptionId, ProductId ProductId, UserId UserId,
         SubscriptionInterval Interval, decimal PaymentAmount, IActorRef? ReplyTo = null) : ISubscriptionCommand;
 
     public sealed record CancelSubscription(SubscriptionId SubscriptionId, IActorRef? ReplyTo = null) : ISubscriptionCommand;

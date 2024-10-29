@@ -10,7 +10,7 @@ public sealed class FakePaymentsService : IPaymentsService
     /// </summary>
     public bool ShouldPass { get; set; } = true;
     
-    public Task<PaymentsResponse> CreatePayment(SubscriptionId subscriptionId, string productId, string userId, decimal amountToCharge)
+    public Task<PaymentsResponse> CreatePayment(SubscriptionId subscriptionId, ProductId productId, UserId userId, decimal amountToCharge)
     {
         var paymentId = Guid.NewGuid().ToString();
         var result = ShouldPass ? CommandResult.Success : CommandResult.Failure;

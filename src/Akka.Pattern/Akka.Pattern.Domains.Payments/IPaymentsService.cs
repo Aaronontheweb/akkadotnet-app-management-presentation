@@ -6,13 +6,13 @@ public sealed record PaymentsResponse
     (string PaymentId, decimal AmountCharged, CommandResult Result, string? Message = null) : ICommandResponse;
 public interface IPaymentsService
 {
-    Task<PaymentsResponse> CreatePayment(SubscriptionId subscriptionId, string productId, string userId, decimal amountToCharge);
+    Task<PaymentsResponse> CreatePayment(SubscriptionId subscriptionId, ProductId productId, UserId userId, decimal amountToCharge);
 }
 
 
 public sealed class DefaultPaymentsService : IPaymentsService
 {
-    public Task<PaymentsResponse> CreatePayment(SubscriptionId subscriptionId, string productId, string userId, decimal amountToCharge)
+    public Task<PaymentsResponse> CreatePayment(SubscriptionId subscriptionId, ProductId productId, UserId userId, decimal amountToCharge)
     {
         var paymentId = Guid.NewGuid().ToString();
         
