@@ -2,24 +2,21 @@
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
-
   <PropertyGroup Label="SharedVersions">
     <PbmVersion>1.4.3</PbmVersion>
     <AkkaHostingVersion>1.5.30.1</AkkaHostingVersion>
   </PropertyGroup>
-  
   <!-- Akka.NET Package Versions -->
   <ItemGroup Label="Akka">
     <PackageVersion Include="Akka.Cluster.Hosting" Version="$(AkkaHostingVersion)" />
+    <PackageVersion Include="Akka.Persistence.TestKit.Xunit2" Version="1.5.30" />
     <PackageVersion Include="Petabridge.Cmd.Cluster" Version="$(PbmVersion)" />
     <PackageVersion Include="Petabridge.Cmd.Cluster.Sharding" Version="$(PbmVersion)" />
     <PackageVersion Include="Petabridge.Cmd.Remote" Version="$(PbmVersion)" />
   </ItemGroup>
-  
   <ItemGroup Label="MsftBcl">
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
   </ItemGroup>
-
   <!-- Test Package Versions -->
   <ItemGroup Label="Testing">
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
