@@ -10,6 +10,7 @@
 
     <ItemGroup>
         <PackageReference Include="Akka.Hosting.TestKit" />
+        <PackageReference Include="Akka.Persistence.TestKit.Xunit2" />
         <PackageReference Include="coverlet.collector"/>
         <PackageReference Include="FluentAssertions" />
         <PackageReference Include="Microsoft.NET.Test.Sdk"/>
