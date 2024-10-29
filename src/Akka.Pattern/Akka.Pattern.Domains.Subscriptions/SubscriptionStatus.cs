@@ -1,4 +1,4 @@
-namespace Akka.Pattern.Domains.Subscriptions.Messages;
+namespace Akka.Pattern.Domains.Subscriptions;
 
 public enum SubscriptionStatus
 {
