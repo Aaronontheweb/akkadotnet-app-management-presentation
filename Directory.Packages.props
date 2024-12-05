@@ -9,7 +9,7 @@
   <!-- Akka.NET Package Versions -->
   <ItemGroup Label="Akka">
     <PackageVersion Include="Akka.Cluster.Hosting" Version="$(AkkaHostingVersion)" />
-    <PackageVersion Include="Akka.Persistence.TestKit.Xunit2" Version="1.5.31" />
+    <PackageVersion Include="Akka.Persistence.TestKit.Xunit2" Version="1.5.32" />
     <PackageVersion Include="Petabridge.Cmd.Cluster" Version="$(PbmVersion)" />
     <PackageVersion Include="Petabridge.Cmd.Cluster.Sharding" Version="$(PbmVersion)" />
     <PackageVersion Include="Petabridge.Cmd.Remote" Version="$(PbmVersion)" />
