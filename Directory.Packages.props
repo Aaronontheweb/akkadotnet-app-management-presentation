@@ -15,7 +15,7 @@
     <PackageVersion Include="Petabridge.Cmd.Remote" Version="$(PbmVersion)" />
   </ItemGroup>
   <ItemGroup Label="MsftBcl">
-    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="9.0.1" />
   </ItemGroup>
   <!-- Test Package Versions -->
   <ItemGroup Label="Testing">
