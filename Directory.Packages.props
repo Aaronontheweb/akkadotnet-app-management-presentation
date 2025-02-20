@@ -3,7 +3,7 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <PropertyGroup Label="SharedVersions">
-    <PbmVersion>1.4.3</PbmVersion>
+    <PbmVersion>1.4.4</PbmVersion>
     <AkkaHostingVersion>1.5.31.1</AkkaHostingVersion>
   </PropertyGroup>
   <!-- Akka.NET Package Versions -->
